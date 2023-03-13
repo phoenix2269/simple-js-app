@@ -78,7 +78,7 @@ pokemonRepository.getAll().forEach(function(pokemon) {
     let listItem = document.createElement('li');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('selectedLi');
+    button.classList.add('liButton');
     listItem.appendChild(button);
     ulList.appendChild(listItem);
 });
