@@ -2,7 +2,11 @@ ul {
     list-style: none;
 }
 
-.selectedLi {
+.liButton {
     border-color: red;
-    border: 2px;
+    width: 100px;
+    height: 30px;
+    padding: 3px;
+    margin: 2px;
+    text-size-adjust: 13.0;
 }
