@@ -49,8 +49,8 @@ let pokemonRepository = (function () {
     };
 })();
 
-/* Opening/creating a div element, and opening/creating an unordered list */
-document.write('<div><ul>');
+/* Opening/creating a div element */
+document.write('<div>');
 
 /* Iterating over the array and displaying the name and height of each */
 /* for (let i = 0; i < pokemonList.length; i++) {
@@ -62,7 +62,8 @@ document.write('<div><ul>');
         document.write(`<li>${name} (height: ${height})</li>`);
     }
 } */
-pokemonRepository.getAll().forEach(function(pokemon) {
+/* old version of the forEach loop */
+/* pokemonRepository.getAll().forEach(function(pokemon) {
     let name = pokemon.name;
     let height = pokemon.height;
     if (height > 5) {
@@ -70,7 +71,17 @@ pokemonRepository.getAll().forEach(function(pokemon) {
     } else {
         document.write(`<li>${name} (height: ${height})</li>`);
     }
+}); */
+
+pokemonRepository.getAll().forEach(function(pokemon) {
+    let ulList = document.querySelector('.pokemon-list');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('selectedLi');
+    listItem.appendChild(button);
+    ulList.appendChild(listItem);
 });
 
-/* Closing the unordered list and div elements */
-document.write('</ul></div>');
+/* Closing the div element */
+document.write('</div>');
