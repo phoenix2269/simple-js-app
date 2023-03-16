@@ -1,34 +1,10 @@
 let pokemonRepository = (function () {
-    let pokemonList = [
-        {
-            name: "Noctowl",
-            height: 5,
-            type: ['Normal','Flying'],
-            abilities: ['Keen Eye','Insomnia']
+    let pokemonList = [];
+//    let apiUrl = 'https://imdb-api.com/en/API/MostPopularMovies/k_vfofrs3q';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-        },
-        {
-            name: "Charizard",
-            height: 5,
-            type: ['Fire','Flying'],
-            abilities: ['Blaze']
-        },
-        {
-            name: "Arcanine",
-            height: 6,
-            type: ['Fire'],
-            abilities: ['Intimidate','Flash Fire']
-        },
-        {
-            name: "Moltres",
-            height: 6,
-            type: ['Fire', 'Flying'],
-            abilities: ['Pressure']
-        }
-    ];
-
-    function addv(userInput) {
-        return (typeof userInput === "object" && Object.keys(userInput) === Object.keys(pokemonList));
+    function addv(pokemon) {
+        return (typeof pokemon === "object" && 'name' in pokemon && 'detailsUrl' in pokemon);
     }
 
     function add(pokemon) {
@@ -44,7 +20,9 @@ let pokemonRepository = (function () {
     }
 
     function showDetails(pokemon) {
-        console.log(pokemon);
+        loadDetails(pokemon).then(function () {
+            console.log(pokemon);
+        });
     }
 
     function addListener (button, pokemon) {
@@ -63,47 +41,50 @@ let pokemonRepository = (function () {
         ulList.appendChild(listItem);
 
         addListener(button, pokemon);
+    }
 
-        /* original event listener placement per exercise instruuctions */        
-/*         button.addEventListener('click', function () {
-            showDetails(pokemon);
-        }); */
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+            return response.json();
+        }).then(function(json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(pokemon);
+            });
+        }).catch(function (e) {
+            console.error(e);
+        })
+    }
+
+    function loadDetails(item) {
+        let url = item.detailsUrl;
+        return fetch(url).then(function(response) {
+            return response.json();
+        }).then(function (details) {
+            // Now we add the details to the item
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.types;
+        }).catch(function (e) {
+            console.error(e);
+        });
     }
 
     return {
         add,
         getAll,
-        addListItem
+        addListItem,
+        loadList,
+        loadDetails
     };
 })();
 
-/* Opening/creating a div element */
-document.write('<div>');
-
-/* Iterating over the array and displaying the name and height of each */
-/* for (let i = 0; i < pokemonList.length; i++) {
-    let name = pokemonList[i].name;
-    let height = pokemonList[i].height;
-    if (height > 5) {
-        document.write(`<li>${name} (height: ${height}) - Wow, that's big!</li>`);
-    } else {
-        document.write(`<li>${name} (height: ${height})</li>`);
-    }
-} */
-/* old version of the forEach loop */
-/* pokemonRepository.getAll().forEach(function(pokemon) {
-    let name = pokemon.name;
-    let height = pokemon.height;
-    if (height > 5) {
-        document.write(`<li>${name} (height: ${height}) - Wow, that's big!</li>`);
-    } else {
-        document.write(`<li>${name} (height: ${height})</li>`);
-    }
-}); */
-
-pokemonRepository.getAll().forEach(function(pokemon) {
-    pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+    // Now the data is loaded!
+    pokemonRepository.getAll().forEach(function(pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    });
 });
-
-/* Closing the div element */
-document.write('</div>');
