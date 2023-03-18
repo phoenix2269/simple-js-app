@@ -1,6 +1,5 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
-//    let apiUrl = 'https://imdb-api.com/en/API/MostPopularMovies/k_vfofrs3q';
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
     function addv(pokemon) {
@@ -22,12 +21,13 @@ let pokemonRepository = (function () {
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
             console.log(pokemon);
+            modalRepository.showModal(pokemon);
         });
     }
 
     function addListener (button, pokemon) {
         button.addEventListener('click', function () {
-            showDetails(pokemon); /* pokemon object currently */
+            showDetails(pokemon);
         }); 
     }
 
@@ -73,12 +73,75 @@ let pokemonRepository = (function () {
         });
     }
 
+
+
     return {
         add,
         getAll,
         addListItem,
         loadList,
         loadDetails
+    };
+})();
+
+let modalRepository = (function () {
+    let modalContainer = document.querySelector('#modal-container');
+
+    function showModal(pokemon) {
+
+        // Clear all existing modal content
+        modalContainer.innerHTML = '';
+
+        let modal = document.createElement('div');
+        modal.classList.add('modal');
+
+        // Need to change the below code to work with the pokemon buttons
+        // Add the new modal content
+/*         let closeButtonElement = document.createElement('button');
+        closeButtonElement.classList.add('modal-close');
+        closeButtonElement.innerText = 'Close';
+        closeButtonElement.addEventListener('click', hideModal);
+ */
+        let titleElement = document.createElement('h1');
+        titleElement.innerText = pokemon.name;
+
+        let contentElement = document.createElement('p');
+        contentElement.innerText = `Height: ${pokemon.height}`;
+
+        let imageElement = document.createElement('img');
+        imageElement.src = pokemon.imageUrl;
+
+        // modal.appendChild(closeButtonElement);
+        modal.appendChild(titleElement);
+        modal.appendChild(contentElement);
+        modal.appendChild(imageElement);
+        modalContainer.appendChild(modal);
+
+        modalContainer.classList.add('is-visible');
+
+        modalContainer.addEventListener('click', (e) => {
+            // Since this is also triggered when clicking INSIDE the modal
+            // We only want to close if the user clicks directly on the overlay
+            let target = e.target;
+            if (target === modalContainer) {
+                hideModal();
+            }
+        });
+    }
+
+    function hideModal() {
+        modalContainer.classList.remove('is-visible');
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+            hideModal();
+        }
+    });
+
+    return {
+        showModal,
+        hideModal
     };
 })();
 
