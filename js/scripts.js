@@ -128,6 +128,9 @@ let modalRepository = (function () {
     }
 
     function hideModal() {
+        $('.modal-title').empty();
+        $('.modal-body').empty();
+        $('.modal-footer').empty();
         modalContainer.classList.remove('is-visible');
     }
 
