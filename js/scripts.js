@@ -8,7 +8,6 @@ let pokemonRepository = (function () {
 
     function add(pokemon) {
         if (addv(pokemon)) {
-            console.log(pokemon);
             pokemonList.push(pokemon);
         } else {
             document.write("Input is not a valid object!");
@@ -89,12 +88,12 @@ let pokemonRepository = (function () {
 
 let modalRepository = (function () {
     let modalContainer = document.querySelector('#modal-container');
+    const $ = window.$; // Function to display the modal with Pokemon data
 
     function showModal(pokemon) {
 //        console.log(pokemon);
         let modalBody = $('.modal-body')
         let modalTitle = $('.modal-title');
-    //    let modalHeader = $('.modal-header');
 
         // Clear existing content of the modal
         modalTitle.empty();
@@ -105,8 +104,6 @@ let modalRepository = (function () {
         // Creating img in modal content
          let imageElement = $('<img class="modal-img" style="width:50%">');
         imageElement.attr("src", pokemon.imageUrl);
-/*        let imageElementBack = $('<img class="modalimg" style="width:50%">');
-        imageElementBack.attr("src", pokemon.imageUrlBack); */
         // Creating element for height in modal content
         let heightElement = $("<p>" + "height : " + pokemon.height + "</p>");
         // Creating element for weight in modal content
@@ -118,12 +115,10 @@ let modalRepository = (function () {
 
         modalTitle.append(pokemonName);
         modalBody.append(imageElement);
-    //    modalBody.append(imageElementBack);
         modalBody.append(heightElement);
         modalBody.append(weightElement);
     //    modalBody.append(typesElement);
     //    modalBody.append(abilitiesElement);
-
     }
 
     function hideModal() {
