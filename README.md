@@ -6,16 +6,16 @@ List of Pokemon from Pokedex using API calls to populate the list, create button
 View At: https://phoenix2269.github.io/simple-js-app/
 
 Languages Used
-    HTML
-    CSS
-    Javascript
-    jQuery
-    Bootstrap
+* HTML
+* CSS
+* Javascript
+* jQuery
+* Bootstrap
 
 Sources & Credits
-    PokeAPI Documentation
-    PokeAPI
-    Promise Polyfill
-    Fetch Polyfill
-    Freepngimg
-    freeiconspng
+* PokeAPI Documentation
+* PokeAPI
+* Promise Polyfill
+* Fetch Polyfill
+* Freepngimg
+* freeiconspng
