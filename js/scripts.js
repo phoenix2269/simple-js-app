@@ -8,6 +8,7 @@ let pokemonRepository = (function () {
 
     function add(pokemon) {
         if (addv(pokemon)) {
+            console.log(pokemon);
             pokemonList.push(pokemon);
         } else {
             document.write("Input is not a valid object!");
@@ -76,8 +77,6 @@ let pokemonRepository = (function () {
             console.error(e);
         });
     }
-
-
 
     return {
         add,
