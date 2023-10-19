@@ -1,21 +1,39 @@
-Pokedex Web App
+# Pokedex Web App
 
-Description
-List of Pokemon from Pokedex using API calls to populate the list, create buttons, and get the details.  The details are displayed in a pop-up modal.
+## Objective
 
-View At: https://phoenix2269.github.io/simple-js-app/
+To build a small web application with HTML, CSS, and JavaScript that loads
+data from an external API and enables the viewing of data points in detail.
 
-Languages Used
-* HTML
-* CSS
-* Javascript
-* jQuery
-* Bootstrap
+## Demo
 
-Sources & Credits
-* PokeAPI Documentation
-* PokeAPI
-* Promise Polyfill
-* Fetch Polyfill
-* Freepngimg
-* freeiconspng
+The deployed app can be viewed [here.](https://phoenix2269.github.io/simple-js-app/)
+
+## Description
+
+### Key Features
+
+-   Load data from an external source (API)
+-   View a list of items
+-   On user action (e.g., by clicking on a list item), view details for that item
+
+## Getting Started
+
+### Tech Stack
+
+-   HTML
+-   CSS
+-	JavaScript
+-	jQuery
+-   Bootstrap
+
+## Sources & Credits
+-	PokeAPI Documentation
+-	PokeAPI
+-	Promise Polyfill
+-	Fetch Polyfill
+-	Freepngimg
+- 	freeiconspng
+
+
+ 
